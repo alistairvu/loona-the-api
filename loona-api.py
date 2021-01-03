@@ -156,7 +156,8 @@ class Member(Resource):
         return "Member not found", 404
 
 
-api.add_resource(Member, "/loona-api", "/loona-api/", "/loona-api/<int:id>")
+api.add_resource(Member, "/", "/loona-api",
+                 "/loona-api/", "/loona-api/<int:id>")
 
 if __name__ == '__main__':
     app.run(debug=True)
