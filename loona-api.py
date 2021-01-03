@@ -158,13 +158,6 @@ class Member(Resource):
         return "Member not found", 404
 
 
-@app.route("/<response>")
-def after_request(response):
-    header = response.headers
-    header["Access-Control-Allow-Origin"] = "*"
-    return response
-
-
 api.add_resource(Member, "/", "/<int:id>")
 
 if __name__ == '__main__':
