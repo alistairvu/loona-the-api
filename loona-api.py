@@ -1,8 +1,10 @@
 from flask import Flask
-from flask_restful import Api, Resource, reqparse
+from flask_restful import Api, Resource
+from flask_cors import CORS
 
 app = Flask(__name__)
 api = Api(app)
+CORS(app)
 
 loona_members = [
     {
@@ -154,6 +156,13 @@ class Member(Resource):
             if member["id"] == id:
                 return member, 200
         return "Member not found", 404
+
+
+@app.route("/<response>")
+def after_request(response):
+    header = response.headers
+    header["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 api.add_resource(Member, "/", "/<int:id>")
