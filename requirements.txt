@@ -1,5 +1,4 @@
 flask
 flask-restful
 flask-cors
-json
 gunicorn == 19.9.0
