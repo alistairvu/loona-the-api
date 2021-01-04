@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api, Resource
 from flask_cors import CORS
 import json
@@ -11,18 +11,18 @@ with open("./loona-data.json") as loona_data:
     loona_members = json.load(loona_data)
 
 
-class Member(Resource):
-    def get(self, id=0):
-        if id == 0:
-            return loona_members, 200
+class Members(Resource):
+    @app.route("/", methods=["GET"])
+    def getAll():
+        return jsonify(loona_members), 200
 
+    @app.route("/<int:id>", methods=["GET"])
+    def getOne(id):
         for member in loona_members:
             if member["id"] == id:
-                return member, 200
+                return jsonify(member), 200
         return "Member not found", 404
 
-
-api.add_resource(Member, "/", "/<int:id>")
 
 if __name__ == '__main__':
     app.run(debug=True)
